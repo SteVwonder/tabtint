@@ -27,8 +27,9 @@ assert_file "$ROOT/.agents/plugins/marketplace.json"
 assert_file "$ROOT/.claude-plugin/marketplace.json"
 assert_file "$PLUGIN/.codex-plugin/plugin.json"
 assert_file "$PLUGIN/.claude-plugin/plugin.json"
-assert_file "$PLUGIN/hooks.json"
 assert_file "$PLUGIN/hooks/hooks.json"
+assert_file "$PLUGIN/skills/install-codex-hooks/SKILL.md"
+assert_file "$PLUGIN/skills/install-codex-hooks/agents/openai.yaml"
 assert_file "$PLUGIN/scripts/tabtint-iterm2"
 assert_file "$PLUGIN/scripts/install-codex-standalone.sh"
 assert_file "$PLUGIN/scripts/install-claude-standalone.sh"
@@ -40,14 +41,21 @@ assert_json "$ROOT/.agents/plugins/marketplace.json"
 assert_json "$ROOT/.claude-plugin/marketplace.json"
 assert_json "$PLUGIN/.codex-plugin/plugin.json"
 assert_json "$PLUGIN/.claude-plugin/plugin.json"
-assert_json "$PLUGIN/hooks.json"
 assert_json "$PLUGIN/hooks/hooks.json"
 
 jq -e '
   .name == "tabtint-iterm2"
-  and .hooks == "./hooks.json"
+  and (.hooks | not)
+  and .skills == "./skills"
   and .interface.displayName == "Tabtint for iTerm2"
+  and .interface.defaultPrompt == ["Install Tabtint Codex hooks"]
 ' "$PLUGIN/.codex-plugin/plugin.json" >/dev/null || fail "plugin manifest metadata mismatch"
+
+grep -q 'install-codex-hooks' "$PLUGIN/skills/install-codex-hooks/SKILL.md" || fail "Codex install skill missing expected name"
+grep -q 'disable-model-invocation: true' "$PLUGIN/skills/install-codex-hooks/SKILL.md" || fail "Codex install skill must be explicit-only in Claude Code"
+grep -q 'install-codex-standalone.sh' "$PLUGIN/skills/install-codex-hooks/SKILL.md" || fail "Codex install skill missing installer reference"
+grep -q 'allow_implicit_invocation: false' "$PLUGIN/skills/install-codex-hooks/agents/openai.yaml" || fail "Codex install skill must not be auto-loadable"
+grep -q 'default_prompt: "Install Tabtint Codex hooks"' "$PLUGIN/skills/install-codex-hooks/agents/openai.yaml" || fail "Codex install skill missing default prompt metadata"
 
 jq -e '
   .name == "tabtint-iterm2"
@@ -74,25 +82,6 @@ jq -e '
       and .description == "Tint iTerm2 tabs from local agent lifecycle state."))
     | length == 1)
 ' "$ROOT/.claude-plugin/marketplace.json" >/dev/null || fail "Claude marketplace entry mismatch"
-
-jq -e '
-  def hook_commands(event):
-    [.hooks[event][]?.hooks[]? | select(.type == "command") | .command];
-
-  (.hooks.SessionStart[0].matcher == "startup|resume")
-  and (.hooks.UserPromptSubmit[0].matcher == "")
-  and (.hooks.PreToolUse[0].matcher == "Bash")
-  and (.hooks.PermissionRequest[0].matcher == "Bash")
-  and (.hooks.PostToolUse[0].matcher == "Bash")
-  and (.hooks.Stop[0].matcher == "")
-  and ([hook_commands("SessionStart"),
-        hook_commands("UserPromptSubmit"),
-        hook_commands("PreToolUse"),
-        hook_commands("PermissionRequest"),
-        hook_commands("PostToolUse"),
-        hook_commands("Stop")]
-    | all(. == ["./scripts/tabtint-iterm2"]))
-' "$PLUGIN/hooks.json" >/dev/null || fail "Codex hooks.json mismatch"
 
 jq -e '
   def hook_commands(event):

@@ -17,16 +17,18 @@
     "iterm2",
     "terminal"
   ],
-  "hooks": "./hooks.json",
+  "skills": "./skills",
   "interface": {
     "displayName": "Tabtint for iTerm2",
-    "shortDescription": "Tint iTerm2 tabs from agent hook state.",
-    "longDescription": "Installs lifecycle hooks that set the current iTerm2 tab color for running, approval, and idle states. The hook writes directly to the controlling terminal so hook output stays clean.",
+    "shortDescription": "Set up iTerm2 tab tinting for Codex hook state.",
+    "longDescription": "Provides the Tabtint iTerm2 hook script and a Codex skill that installs supported lifecycle hook entries into your Codex config.",
     "developerName": "sherbein",
     "category": "Productivity",
     "capabilities": [
-      "Hooks",
       "Terminal"
+    ],
+    "defaultPrompt": [
+      "Install Tabtint Codex hooks"
     ],
     "websiteURL": "https://github.com/sherbein/tabtint",
     "brandColor": "#5FD7FF"
