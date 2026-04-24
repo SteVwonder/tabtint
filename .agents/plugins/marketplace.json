@@ -1,0 +1,20 @@
+{
+  "name": "tabtint",
+  "interface": {
+    "displayName": "Tabtint"
+  },
+  "plugins": [
+    {
+      "name": "tabtint-iterm2",
+      "source": {
+        "source": "local",
+        "path": "./plugins/tabtint-iterm2"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+# Set the iTerm2 tab color for coarse local agent states.
+#
+# Intended for Codex and Claude Code lifecycle hooks. It writes OSC 1337 to the
+# controlling terminal, not stdout, so the caller can still capture hook output.
+
+set -u
+
+if [[ "${AGENT_ITERM_TAB_STATE:-1}" == "0" ||
+      "${CODEX_ITERM_TAB_STATE:-1}" == "0" ||
+      "${CLAUDE_ITERM_TAB_STATE:-1}" == "0" ]]; then
+  exit 0
+fi
+
+first_env() {
+  local name
+  for name in "$@"; do
+    if [[ -n "${!name:-}" ]]; then
+      printf '%s' "${!name}"
+      return 0
+    fi
+  done
+  return 1
+}
+
+state="${1:-}"
+payload=""
+
+if [[ -z "$state" ]]; then
+  if [[ -t 0 ]]; then
+    payload=""
+  else
+    payload="$(cat)"
+  fi
+
+  event=""
+  if command -v jq >/dev/null 2>&1 && [[ -n "$payload" ]]; then
+    event="$(printf '%s' "$payload" | jq -r '.hook_event_name // empty' 2>/dev/null)"
+  fi
+
+  case "$event" in
+    SessionStart|SessionEnd|Notification|Stop) state="idle" ;;
+    UserPromptSubmit|PreToolUse|PostToolUse) state="running" ;;
+    PermissionRequest) state="approval" ;;
+    *) exit 0 ;;
+  esac
+fi
+
+case "$state" in
+  running)
+    color="$(first_env AGENT_ITERM_TAB_RUNNING CODEX_ITERM_TAB_RUNNING CLAUDE_ITERM_TAB_RUNNING || printf '5fff87')"
+    ;;
+  approval)
+    color="$(first_env AGENT_ITERM_TAB_APPROVAL CODEX_ITERM_TAB_APPROVAL CLAUDE_ITERM_TAB_APPROVAL || printf 'ff5f87')"
+    ;;
+  idle)
+    color="$(first_env AGENT_ITERM_TAB_IDLE CODEX_ITERM_TAB_IDLE CLAUDE_ITERM_TAB_IDLE || printf '5fd7ff')"
+    ;;
+  error)
+    color="$(first_env AGENT_ITERM_TAB_ERROR CODEX_ITERM_TAB_ERROR CLAUDE_ITERM_TAB_ERROR || printf 'ff5f87')"
+    ;;
+  default|reset)
+    color="default"
+    ;;
+  *)
+    exit 0
+    ;;
+esac
+
+tty="$(first_env AGENT_ITERM_TAB_TTY CODEX_ITERM_TAB_TTY CLAUDE_ITERM_TAB_TTY || printf '/dev/tty')"
+
+if [[ "$color" == "default" ]]; then
+  printf '\033]1337;SetColors=tab=default\a' > "$tty" 2>/dev/null || true
+else
+  printf '\033]1337;SetColors=tab=%s\a' "$color" > "$tty" 2>/dev/null || true
+fi
+
+exit 0

@@ -1,0 +1,34 @@
+{
+  "name": "tabtint-iterm2",
+  "version": "0.1.0",
+  "description": "Tint iTerm2 tabs from local agent lifecycle state.",
+  "author": {
+    "name": "sherbein",
+    "url": "https://github.com/sherbein"
+  },
+  "homepage": "https://github.com/sherbein/tabtint",
+  "repository": "https://github.com/sherbein/tabtint",
+  "license": "MIT",
+  "keywords": [
+    "tabtint",
+    "codex",
+    "claude-code",
+    "hooks",
+    "iterm2",
+    "terminal"
+  ],
+  "hooks": "./hooks.json",
+  "interface": {
+    "displayName": "Tabtint for iTerm2",
+    "shortDescription": "Tint iTerm2 tabs from agent hook state.",
+    "longDescription": "Installs lifecycle hooks that set the current iTerm2 tab color for running, approval, and idle states. The hook writes directly to the controlling terminal so hook output stays clean.",
+    "developerName": "sherbein",
+    "category": "Productivity",
+    "capabilities": [
+      "Hooks",
+      "Terminal"
+    ],
+    "websiteURL": "https://github.com/sherbein/tabtint",
+    "brandColor": "#5FD7FF"
+  }
+}

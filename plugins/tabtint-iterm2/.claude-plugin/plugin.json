@@ -1,0 +1,20 @@
+{
+  "name": "tabtint-iterm2",
+  "version": "0.1.0",
+  "description": "Tint iTerm2 tabs from local agent lifecycle state.",
+  "author": {
+    "name": "sherbein",
+    "url": "https://github.com/sherbein"
+  },
+  "homepage": "https://github.com/sherbein/tabtint",
+  "repository": "https://github.com/sherbein/tabtint",
+  "license": "MIT",
+  "keywords": [
+    "tabtint",
+    "claude-code",
+    "hooks",
+    "iterm2",
+    "terminal"
+  ],
+  "hooks": "./hooks/hooks.json"
+}
