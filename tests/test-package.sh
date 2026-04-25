@@ -112,9 +112,9 @@ run_hook '{"hook_event_name":"PermissionRequest"}' "$tmp/approval"
 run_hook '{"hook_event_name":"Stop"}' "$tmp/idle"
 AGENT_ITERM_TAB_TTY="$tmp/reset" "$PLUGIN/scripts/tabtint-iterm2" reset
 
-grep -q $'\033]1337;SetColors=tab=5fff87\a' "$tmp/running" || fail "running color mismatch"
+grep -q $'\033]1337;SetColors=tab=5fd7ff\a' "$tmp/running" || fail "running color mismatch"
 grep -q $'\033]1337;SetColors=tab=ff5f87\a' "$tmp/approval" || fail "approval color mismatch"
-grep -q $'\033]1337;SetColors=tab=5fd7ff\a' "$tmp/idle" || fail "idle color mismatch"
+grep -q $'\033]1337;SetColors=tab=5fff87\a' "$tmp/idle" || fail "idle color mismatch"
 grep -q $'\033]1337;SetColors=tab=default\a' "$tmp/reset" || fail "reset color mismatch"
 
 CODEX_HOME="$tmp/codex" "$PLUGIN/scripts/install-codex-standalone.sh" >/dev/null

@@ -4,9 +4,9 @@ Tabtint is a small plugin marketplace and hook installer for tinting terminal ta
 
 The first package, `tabtint-iterm2`, provides lifecycle hooks for Codex and Claude Code that set the current iTerm2 tab color:
 
-- Running: green, `5fff87`
+- Running: blue, `5fd7ff`
 - Permission prompt: red, `ff5f87`
-- Idle or done: blue, `5fd7ff`
+- Idle or done: green, `5fff87`
 
 The hook writes iTerm2 OSC 1337 tab-color sequences directly to the controlling terminal, or to `AGENT_ITERM_TAB_TTY` when set. It does not print escape codes to stdout, so hook output remains clean.
 
@@ -133,9 +133,9 @@ export AGENT_ITERM_TAB_TTY=/dev/ttys001
 Override colors:
 
 ```bash
-export AGENT_ITERM_TAB_RUNNING=5fff87
+export AGENT_ITERM_TAB_RUNNING=5fd7ff
 export AGENT_ITERM_TAB_APPROVAL=ff5f87
-export AGENT_ITERM_TAB_IDLE=5fd7ff
+export AGENT_ITERM_TAB_IDLE=5fff87
 export AGENT_ITERM_TAB_ERROR=ff5f87
 ```
 

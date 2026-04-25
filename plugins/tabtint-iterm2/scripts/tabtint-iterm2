@@ -48,13 +48,13 @@ fi
 
 case "$state" in
   running)
-    color="$(first_env AGENT_ITERM_TAB_RUNNING CODEX_ITERM_TAB_RUNNING CLAUDE_ITERM_TAB_RUNNING || printf '5fff87')"
+    color="$(first_env AGENT_ITERM_TAB_RUNNING CODEX_ITERM_TAB_RUNNING CLAUDE_ITERM_TAB_RUNNING || printf '5fd7ff')"
     ;;
   approval)
     color="$(first_env AGENT_ITERM_TAB_APPROVAL CODEX_ITERM_TAB_APPROVAL CLAUDE_ITERM_TAB_APPROVAL || printf 'ff5f87')"
     ;;
   idle)
-    color="$(first_env AGENT_ITERM_TAB_IDLE CODEX_ITERM_TAB_IDLE CLAUDE_ITERM_TAB_IDLE || printf '5fd7ff')"
+    color="$(first_env AGENT_ITERM_TAB_IDLE CODEX_ITERM_TAB_IDLE CLAUDE_ITERM_TAB_IDLE || printf '5fff87')"
     ;;
   error)
     color="$(first_env AGENT_ITERM_TAB_ERROR CODEX_ITERM_TAB_ERROR CLAUDE_ITERM_TAB_ERROR || printf 'ff5f87')"
