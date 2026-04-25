@@ -1,0 +1,6 @@
+interface:
+  display_name: "Install Tabtint hooks"
+  short_description: "Configure Tabtint lifecycle hooks for the active agent."
+  default_prompt: "$tabtint-iterm2:install-tabtint-hooks"
+policy:
+  allow_implicit_invocation: false

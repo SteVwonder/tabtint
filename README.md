@@ -27,7 +27,7 @@ Restart Codex, open the plugin browser, and install `tabtint-iterm2` from the `t
 Codex plugin installation caches and enables the package, but it does not write lifecycle hooks into your active config. Enable actual tab tinting by invoking the plugin's installer skill:
 
 ```text
-$tabtint-iterm2:install-codex-hooks
+$tabtint-iterm2:install-tabtint-hooks
 ```
 
 That skill runs the plugin's bundled installer from its plugin cache and may ask for permission before updating `~/.codex/config.toml` and `~/.codex/hooks.json`.
@@ -52,6 +52,12 @@ Or use the interactive commands inside Claude Code:
 ```text
 /plugin marketplace add stevwonder/tabtint
 /plugin install tabtint-iterm2@tabtint
+```
+
+The plugin also exposes the `install-tabtint-hooks` skill for explicit hook installation or repair inside Claude Code.
+
+```text
+/install-tabtint-hooks
 ```
 
 For local development before publishing:
@@ -105,7 +111,7 @@ tabtint/
       .codex-plugin/plugin.json
       .claude-plugin/plugin.json
       hooks/hooks.json
-      skills/install-codex-hooks/
+      skills/install-tabtint-hooks/
         SKILL.md
         agents/openai.yaml
       scripts/tabtint-iterm2
@@ -161,6 +167,6 @@ Validate JSON and shell syntax:
 ```bash
 jq empty .agents/plugins/marketplace.json .claude-plugin/marketplace.json plugins/tabtint-iterm2/.codex-plugin/plugin.json plugins/tabtint-iterm2/.claude-plugin/plugin.json plugins/tabtint-iterm2/hooks/hooks.json
 bash -n plugins/tabtint-iterm2/scripts/tabtint-iterm2 plugins/tabtint-iterm2/scripts/install-codex-standalone.sh plugins/tabtint-iterm2/scripts/install-claude-standalone.sh tests/test-package.sh
-grep -q 'install-codex-standalone.sh' plugins/tabtint-iterm2/skills/install-codex-hooks/SKILL.md
-grep -q 'default_prompt: "$tabtint-iterm2:install-codex-hooks"' plugins/tabtint-iterm2/skills/install-codex-hooks/agents/openai.yaml
+grep -q 'install-codex-standalone.sh' plugins/tabtint-iterm2/skills/install-tabtint-hooks/SKILL.md
+grep -q 'default_prompt: "$tabtint-iterm2:install-tabtint-hooks"' plugins/tabtint-iterm2/skills/install-tabtint-hooks/agents/openai.yaml
 ```
