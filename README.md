@@ -1,6 +1,6 @@
 # Tabtint
 
-Tabtint is a small plugin marketplace and hook installer for tinting terminal tabs from local coding-agent state.
+Tabtint is a small coding-agent plugin for tinting terminal tabs based on local coding-agent state.
 
 ![Tabtint in action](example.png)
 
