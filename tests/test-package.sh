@@ -60,7 +60,7 @@ grep -q 'default_prompt: "$tabtint-iterm2:install-codex-hooks"' "$PLUGIN/skills/
 
 jq -e '
   .name == "tabtint-iterm2"
-  and .hooks == "./hooks/hooks.json"
+  and (has("hooks") | not)
   and .description == "Tint iTerm2 tabs from local agent lifecycle state."
 ' "$PLUGIN/.claude-plugin/plugin.json" >/dev/null || fail "Claude plugin manifest metadata mismatch"
 

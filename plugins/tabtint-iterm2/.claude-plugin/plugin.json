@@ -15,6 +15,5 @@
     "hooks",
     "iterm2",
     "terminal"
-  ],
-  "hooks": "./hooks/hooks.json"
+  ]
 }
