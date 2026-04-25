@@ -48,14 +48,15 @@ jq -e '
   and (.hooks | not)
   and .skills == "./skills"
   and .interface.displayName == "Tabtint for iTerm2"
-  and .interface.defaultPrompt == ["Install Tabtint Codex hooks"]
+  and .interface.defaultPrompt == ["$tabtint-iterm2:install-codex-hooks"]
 ' "$PLUGIN/.codex-plugin/plugin.json" >/dev/null || fail "plugin manifest metadata mismatch"
 
 grep -q 'install-codex-hooks' "$PLUGIN/skills/install-codex-hooks/SKILL.md" || fail "Codex install skill missing expected name"
 grep -q 'disable-model-invocation: true' "$PLUGIN/skills/install-codex-hooks/SKILL.md" || fail "Codex install skill must be explicit-only in Claude Code"
 grep -q 'install-codex-standalone.sh' "$PLUGIN/skills/install-codex-hooks/SKILL.md" || fail "Codex install skill missing installer reference"
 grep -q 'allow_implicit_invocation: false' "$PLUGIN/skills/install-codex-hooks/agents/openai.yaml" || fail "Codex install skill must not be auto-loadable"
-grep -q 'default_prompt: "Install Tabtint Codex hooks"' "$PLUGIN/skills/install-codex-hooks/agents/openai.yaml" || fail "Codex install skill missing default prompt metadata"
+grep -q 'default_prompt: "$tabtint-iterm2:install-codex-hooks"' "$PLUGIN/skills/install-codex-hooks/agents/openai.yaml" || fail "Codex install skill missing explicit default prompt metadata"
+[[ ! -e "$PLUGIN/commands" ]] || fail "Codex does not support plugin commands; use skills instead"
 
 jq -e '
   .name == "tabtint-iterm2"

@@ -28,7 +28,7 @@
       "Terminal"
     ],
     "defaultPrompt": [
-      "Install Tabtint Codex hooks"
+      "$tabtint-iterm2:install-codex-hooks"
     ],
     "websiteURL": "https://github.com/sherbein/tabtint",
     "brandColor": "#5FD7FF"

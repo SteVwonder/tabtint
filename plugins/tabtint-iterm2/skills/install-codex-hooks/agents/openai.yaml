@@ -1,6 +1,6 @@
 interface:
   display_name: "Install Tabtint Codex hooks"
   short_description: "Configure Tabtint lifecycle hooks for Codex."
-  default_prompt: "Install Tabtint Codex hooks"
+  default_prompt: "$tabtint-iterm2:install-codex-hooks"
 policy:
   allow_implicit_invocation: false

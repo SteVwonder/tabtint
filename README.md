@@ -24,13 +24,13 @@ Restart Codex, open the plugin browser, and install `tabtint-iterm2` from the `t
 /plugins
 ```
 
-Codex plugin installation caches and enables the package, but it does not write lifecycle hooks into your active config. Enable actual tab tinting by asking Codex to run the plugin's installer skill:
+Codex plugin installation caches and enables the package, but it does not write lifecycle hooks into your active config. Enable actual tab tinting by invoking the plugin's installer skill:
 
 ```text
-Install Tabtint Codex hooks
+$tabtint-iterm2:install-codex-hooks
 ```
 
-That prompt uses the plugin's `install-codex-hooks` skill. The skill is configured as an explicit action rather than auto-loadable model context in both Codex and Claude Code. Codex will run the bundled installer from its plugin cache and may ask for permission before updating `~/.codex/config.toml` and `~/.codex/hooks.json`.
+That skill runs the plugin's bundled installer from its plugin cache and may ask for permission before updating `~/.codex/config.toml` and `~/.codex/hooks.json`.
 
 For local development before publishing:
 
@@ -161,4 +161,6 @@ Validate JSON and shell syntax:
 ```bash
 jq empty .agents/plugins/marketplace.json .claude-plugin/marketplace.json plugins/tabtint-iterm2/.codex-plugin/plugin.json plugins/tabtint-iterm2/.claude-plugin/plugin.json plugins/tabtint-iterm2/hooks/hooks.json
 bash -n plugins/tabtint-iterm2/scripts/tabtint-iterm2 plugins/tabtint-iterm2/scripts/install-codex-standalone.sh plugins/tabtint-iterm2/scripts/install-claude-standalone.sh tests/test-package.sh
+grep -q 'install-codex-standalone.sh' plugins/tabtint-iterm2/skills/install-codex-hooks/SKILL.md
+grep -q 'default_prompt: "$tabtint-iterm2:install-codex-hooks"' plugins/tabtint-iterm2/skills/install-codex-hooks/agents/openai.yaml
 ```

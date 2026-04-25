@@ -17,7 +17,3 @@ Install Tabtint into the user's active Codex configuration without asking the us
 3. Verify that `<CODEX_HOME:-$HOME/.codex>/hooks.json` contains Tabtint command hooks pointing at `<plugin-root>/scripts/tabtint-iterm2`.
 4. Verify that `<CODEX_HOME:-$HOME/.codex>/config.toml` contains `codex_hooks = true`.
 5. Tell the user to start a new Codex session if the current session does not pick up the changed hook config.
-
-## Notes
-
-Do not patch Codex source code for this setup. Current Codex plugin manifests can provide skills, MCP servers, apps, and interface metadata; they do not directly install hook definitions. The installer writes the supported `hooks.json` config that Codex already loads.
