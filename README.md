@@ -15,7 +15,7 @@ The hook writes iTerm2 OSC 1337 tab-color sequences directly to the controlling 
 Add the marketplace from GitHub:
 
 ```bash
-codex plugin marketplace add sherbein/tabtint --ref main
+codex plugin marketplace add stevwonder/tabtint --ref main
 ```
 
 Restart Codex, open the plugin browser, and install `tabtint-iterm2` from the `tabtint` marketplace:
@@ -43,14 +43,14 @@ codex plugin marketplace add /path/to/tabtint
 Add the marketplace from GitHub:
 
 ```bash
-claude plugin marketplace add sherbein/tabtint
+claude plugin marketplace add stevwonder/tabtint
 claude plugin install tabtint-iterm2@tabtint
 ```
 
 Or use the interactive commands inside Claude Code:
 
 ```text
-/plugin marketplace add sherbein/tabtint
+/plugin marketplace add stevwonder/tabtint
 /plugin install tabtint-iterm2@tabtint
 ```
 
