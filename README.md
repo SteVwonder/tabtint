@@ -2,6 +2,8 @@
 
 Tabtint is a small plugin marketplace and hook installer for tinting terminal tabs from local coding-agent state.
 
+![Tabtint in action](example.png)
+
 The first package, `tabtint-iterm2`, provides lifecycle hooks for Codex and Claude Code that set the current iTerm2 tab color:
 
 - Running: blue, `5fd7ff`
