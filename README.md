@@ -94,6 +94,16 @@ CLAUDE_SETTINGS=/path/to/settings.json bash plugins/tabtint-iterm2/scripts/insta
 
 Both installers create `.bak` backups before changing config.
 
+## Reset a Tab
+
+If an agent exits before clearing its tab tint, reset the current iTerm2 tab to its profile default:
+
+```bash
+plugins/tabtint-iterm2/scripts/tabtint-iterm2 reset
+```
+
+The command honors `AGENT_ITERM_TAB_TTY`, `CODEX_ITERM_TAB_TTY`, and `CLAUDE_ITERM_TAB_TTY` when you need to target a specific terminal device. Explicit reset still runs when Tabtint state changes are disabled with `AGENT_ITERM_TAB_STATE=0`, `CODEX_ITERM_TAB_STATE=0`, or `CLAUDE_ITERM_TAB_STATE=0`.
+
 ## Compatibility
 
 `tabtint-iterm2` is intentionally iTerm2-specific. It uses `OSC 1337;SetColors=tab=...`, which is documented by iTerm2 and is not a general terminal standard.

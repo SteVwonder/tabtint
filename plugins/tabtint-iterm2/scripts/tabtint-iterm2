@@ -6,9 +6,12 @@
 
 set -u
 
+state="${1:-}"
+
 if [[ "${AGENT_ITERM_TAB_STATE:-1}" == "0" ||
       "${CODEX_ITERM_TAB_STATE:-1}" == "0" ||
-      "${CLAUDE_ITERM_TAB_STATE:-1}" == "0" ]]; then
+      "${CLAUDE_ITERM_TAB_STATE:-1}" == "0" ]] &&
+   [[ "$state" != "default" && "$state" != "reset" ]]; then
   exit 0
 fi
 
@@ -23,7 +26,6 @@ first_env() {
   return 1
 }
 
-state="${1:-}"
 payload=""
 
 if [[ -z "$state" ]]; then
